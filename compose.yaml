@@ -1,0 +1,7 @@
+﻿services:
+  battleships:
+    image: battleships
+    build:
+      context: .
+      dockerfile: Battleships/Dockerfile
+
