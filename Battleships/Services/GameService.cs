@@ -1,22 +1,23 @@
 ﻿using System.Collections.Concurrent;
 using Battleships.Models;
+using Battleships.Models.Medium;
 
 namespace Battleships.Services;
 
 public interface IGameService
 {
-    GameState GetMatch(Guid matchId);
+    Task<GameState?> GetMatch(Guid matchId);
     void CreateMatch(Guid matchId, GameState state);
-    Match? JoinQueue(Player player);
-    bool FIREEE(Guid matchId, Player player, int posX, int posY);
+    Task<Match?> JoinQueue(int boardSize,Player player);
+    bool Fireee(Guid matchId, Player player, int posX, int posY);
     
 }
 
 public class GameService: IGameService
 {
-    private readonly ConcurrentQueue<Player> _queue = new ();
+    private readonly ConcurrentDictionary<int,ConcurrentQueue<Player>>  _queue = new ();
     private readonly ConcurrentDictionary<Guid, GameState> _matches = new();
-    public GameState GetMatch(Guid matchId)
+    public Task<GameState?> GetMatch(Guid matchId)
     {
         throw new NotImplementedException();
     }
@@ -26,12 +27,12 @@ public class GameService: IGameService
         throw new NotImplementedException();
     }
 
-    public Match? JoinQueue(Player player)
+    public Task<Match?> JoinQueue(int boardSize,Player player)
     {
         throw new NotImplementedException();
     }
 
-    public bool FIREEE(Guid matchId, Player player, int posX, int posY)
+    public bool Fireee(Guid matchId, Player player, int posX, int posY)
     {
         throw new NotImplementedException();
     }

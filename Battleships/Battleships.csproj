@@ -19,4 +19,10 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="DTOs\Hard\" />
+      <Folder Include="Models\Easy\" />
+      <Folder Include="Models\Hard\" />
+    </ItemGroup>
+
 </Project>
