@@ -1,5 +1,9 @@
-﻿namespace Battleships.Exceptions;
+﻿using System.Diagnostics;
 
+namespace Battleships.Exceptions;
+
+[Serializable]
+[StackTraceHidden]
 public class GameNotFoundException: Exception
 {
     

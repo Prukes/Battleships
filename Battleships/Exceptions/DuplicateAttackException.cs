@@ -1,6 +1,9 @@
-﻿namespace Battleships.Exceptions;
+﻿using System.Diagnostics;
+
+namespace Battleships.Exceptions;
 
 [Serializable]
+[StackTraceHidden]
 public class DuplicateAttackException : Exception
 {
     public DuplicateAttackException ()

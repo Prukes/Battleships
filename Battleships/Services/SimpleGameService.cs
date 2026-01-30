@@ -12,7 +12,7 @@ namespace Battleships.Services;
 
 public interface ISimpleGameService
 {
-    public Task<CreatedGameDTO> CreateGame(CreateGameDto createdGameDto);
+    public Task<CreatedGameDto> CreateGame(CreateGameDto createdGameDto);
     public Task<MoveResult> Fireee(Guid matchId,FireRequestDto fireRequest);
 
 }
@@ -20,7 +20,7 @@ public class SimpleGameService : ISimpleGameService
 {
     private readonly ConcurrentDictionary<Guid, GameState> _games = new();
     
-    public Task<CreatedGameDTO> CreateGame(CreateGameDto createdGameDto)
+    public Task<CreatedGameDto> CreateGame(CreateGameDto createdGameDto)
     {
         var boardOne = new Board(createdGameDto.BoardSize);
         var boardTwo = new Board(createdGameDto.BoardSize);
@@ -31,11 +31,10 @@ public class SimpleGameService : ISimpleGameService
         
         
         var game = new GameState(pOne, pTwo, boardOne, boardTwo);
-        
-        var gameDto = new CreatedGameDTO();
-        _games.TryAdd(gameDto.MatchId, game);
+        var matchId = Guid.NewGuid();
+        _games.TryAdd(matchId, game);
 
-        return Task.FromResult(gameDto);
+        return Task.FromResult(new CreatedGameDto(matchId,game.PlayerOneBoard.Tiles, game.PlayerTwoBoard.Tiles));
     }
 
     public Task<MoveResult> Fireee(Guid matchId, FireRequestDto fireRequest)
@@ -44,8 +43,8 @@ public class SimpleGameService : ISimpleGameService
         if(!gameExists) throw new GameNotFoundException("Game not found");
         
         var game = _games[matchId];
-        game.HandleMove(fireRequest.PositionX, fireRequest.PositionY);
-        return Task.FromResult(new MoveResult());
+        var result = game.HandleMove(fireRequest.PositionX, fireRequest.PositionY);
+        return Task.FromResult(result);
     }
 
 }

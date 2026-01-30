@@ -11,33 +11,37 @@ public class GameState
         PlayerTwo = pTwo;
         PlayerOneBoard = boardOne;
         PlayerTwoBoard = boardTwo;
-        PlayerToMove = pOne;
+        ActivePlayer = pOne;
+        ActiveBoard = boardOne;
     }
 
-    private const int NumOfBoatTiles = 20;
+    // private const int NumOfBoatTiles = 20;
 
     private Player PlayerOne { get; }
     private Player PlayerTwo { get; }
     
     //TODO: maybe change to "ActiveBoard" and switch references to boards instead of Players - should have no if checks for player move -> move board moves into Board itself
-    private Player PlayerToMove { get; set; }
+    private Player ActivePlayer { get; set; }
+    private Board ActiveBoard { get; set; }
 
-    private Board PlayerOneBoard { get; }
-    private Board PlayerTwoBoard { get; }
+    public Board PlayerOneBoard { get; }
+    public Board PlayerTwoBoard { get; }
 
     public Player GetPlayerOne() => PlayerOne;
     public Player GetPlayerTwo() => PlayerTwo;
-    public Player GetPlayerToMove() => PlayerToMove;
+    public Player GetActivePlayer() => ActivePlayer;
 
     private void SwitchPlayerTurn()
     {
-        if (PlayerToMove == PlayerTwo)
+        if (ActivePlayer == PlayerTwo)
         {
-            PlayerToMove = PlayerOne;
+            ActivePlayer = PlayerOne;
+            ActiveBoard = PlayerOneBoard;
         }
         else
         {
-            PlayerToMove = PlayerTwo;
+            ActivePlayer = PlayerTwo;
+            ActiveBoard = PlayerTwoBoard;
         }
     }
 
@@ -45,14 +49,14 @@ public class GameState
     {
         ValidateMove(x, y);
 
-        if (PlayerToMove == PlayerOne)
+        var result = ActiveBoard.HandleMove(x, y);
+        
+        if (result == MoveResult.Water)
         {
-            return CheckTile(PlayerOneBoard, x, y);
+            SwitchPlayerTurn();
         }
-        else
-        {
-            return CheckTile(PlayerTwoBoard, x, y);
-        }
+        
+        return result;
     }
 
 
@@ -68,28 +72,6 @@ public class GameState
                 $"Y position is out of range (must be between 0 and {maxWidth})");
     }
 
-    private MoveResult CheckTile(Board board, int x, int y)
-    {
-        // Guard clause - cant hit the same tile again
-        if (board.GetTile(x, y) == 'U' || board.GetTile(x,y) == 'x') throw new DuplicateAttackException("This tile was already attacked! Move again.");
-        //Hit
-        if (board.GetTile(x, y) == 'X')
-        {
-            board.ApplyMove(x, y, 'x');
-            // if (board.CheckIfShipSank())
-            // {
-            //     return MoveResult.Sunk;
-            // }
-            return MoveResult.Hit;
-        }
-        else
-        {
-            // U for used
-            board.ApplyMove(x, y, 'U');
-            SwitchPlayerTurn();
-            return MoveResult.Water;
-        }
-    }
 
 
 }

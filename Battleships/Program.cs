@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddSignalR();
 builder.Services.AddSingleton<IGameService,GameService>();
 builder.Services.AddSingleton<ISimpleGameService, SimpleGameService>();
