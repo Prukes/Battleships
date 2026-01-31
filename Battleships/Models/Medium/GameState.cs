@@ -13,9 +13,8 @@ public class GameState
         PlayerTwoBoard = boardTwo;
         ActivePlayer = pOne;
         ActiveBoard = boardOne;
+        _hasConcluded = false;
     }
-
-    // private const int NumOfBoatTiles = 20;
 
     private Player PlayerOne { get; }
     private Player PlayerTwo { get; }
@@ -30,6 +29,9 @@ public class GameState
     public Player GetPlayerOne() => PlayerOne;
     public Player GetPlayerTwo() => PlayerTwo;
     public Player GetActivePlayer() => ActivePlayer;
+    
+    private bool _hasConcluded;
+    public bool HasConcluded => _hasConcluded;
 
     private void SwitchPlayerTurn()
     {
@@ -47,15 +49,23 @@ public class GameState
 
     public MoveResult HandleMove(int x, int y)
     {
+        if (_hasConcluded) throw new GameConcludedException($"Game has concluded! Player {ActivePlayer.Name} has won!");
         ValidateMove(x, y);
 
         var result = ActiveBoard.HandleMove(x, y);
         
-        if (result == MoveResult.Water)
+        if (result.MoveResultEnum == MoveResultEnum.Water)
         {
             SwitchPlayerTurn();
         }
-        
+        else
+        {
+            if (result.HasWon)
+            {
+                _hasConcluded = true;
+            }
+        }
+
         return result;
     }
 
@@ -63,7 +73,7 @@ public class GameState
     private void ValidateMove(int x, int y)
     {
         // Square board (width == height) 
-        var maxWidth = PlayerOneBoard.Size;
+        var maxWidth = PlayerOneBoard.Size-1;
         if (x < 0 || x > maxWidth)
             throw new ArgumentOutOfRangeException(nameof(x),
                 $"X position is out of range (must be between 0 and {maxWidth})");

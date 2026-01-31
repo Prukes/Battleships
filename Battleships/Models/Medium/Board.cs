@@ -1,5 +1,6 @@
 ﻿using Battleships.Enums;
 using Battleships.Exceptions;
+using Battleships.Models.Medium;
 
 namespace Battleships.Models;
 
@@ -10,6 +11,7 @@ public class Board
         Size = size;
         Tiles = new char[size, size];
         _rng = new Random();
+        NumOfHits = 0;
         for (var i = 0; i < size; i++)
         {
             for (var j = 0; j < size; j++)
@@ -25,7 +27,10 @@ public class Board
     
     private readonly Random _rng;
 
-    private char GetTile(int x, int y) => Tiles[x, y];
+    private const int NumOfShipSlots = 21;
+    private int NumOfHits { get; set; }
+
+    private char GetTile(int x, int y) => Tiles[y, x];
 
     public void GenerateBoard()
     {
@@ -121,7 +126,7 @@ public class Board
 
     private void ApplyMove(int x, int y, char result)
     {
-        Tiles[x, y] = result;
+        Tiles[y, x] = result;
     }
 
     private MoveResult CheckTile( int x, int y)
@@ -136,13 +141,14 @@ public class Board
             // {
             //     return MoveResult.Sunk;
             // }
-            return MoveResult.Hit;
+            NumOfHits++;
+            return new MoveResult(MoveResultEnum.Hit, NumOfHits == NumOfShipSlots);
         }
         else
         {
             // U for used
             ApplyMove(x, y, 'U');
-            return MoveResult.Water;
+            return new MoveResult( MoveResultEnum.Water, NumOfHits == NumOfShipSlots );
         }
     }
 

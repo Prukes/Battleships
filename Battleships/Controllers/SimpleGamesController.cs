@@ -38,7 +38,11 @@ public class SimpleGamesController(ILogger<SimpleGamesController> logger, ISimpl
         }
         catch (DuplicateAttackException e)
         {
-           return Conflict(e.Message);
+            return Conflict(e.Message);
+        }
+        catch (GameConcludedException e)
+        {
+            return Conflict(e.Message);
         }
 
     }
