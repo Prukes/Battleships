@@ -28,7 +28,7 @@ public class GamesControllerTests
         var expectedDto =
             new CreatedGameDto(matchId, pOneBoard.Tiles, pTwoBoard.Tiles, pOne.PlayerId, pTwo.PlayerId);
 
-        // Tell the mock what to do when Fireee is called
+        // Tell the mock what to do when CreateGame is called
         mockService
             .Setup(s => s.CreateGame(createGameRequest))
             .ReturnsAsync(new CreatedGameDto(matchId, pOneBoard.Tiles, pTwoBoard.Tiles, pOne.PlayerId,pTwo.PlayerId));
@@ -40,7 +40,7 @@ public class GamesControllerTests
 
         // 3. Assert: Verify the HTTP status code
         Assert.IsType<CreatedGameDto>(actualDto);
-        //Can't really test expectedDto vs actualDto because controller.CreateGame creates a new random boards.
+        //Can't really test expectedDto vs actualDto because controller.CreateGame creates new random boards.
     }
     
 
