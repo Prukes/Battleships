@@ -13,6 +13,7 @@ namespace Battleships.Services;
 public interface ISimpleGameService
 {
     public Task<CreatedGameDto> CreateGame(CreateGameDto createdGameDto);
+    //ustřelený jméno abych si zachoval sanity
     public Task<GameStateDto> Fireee(Guid matchId, FireRequestDto fireRequest);
 }
 
@@ -24,8 +25,6 @@ public class SimpleGameService : ISimpleGameService
     {
         var boardOne = new Board(createdGameDto.BoardSize);
         var boardTwo = new Board(createdGameDto.BoardSize);
-        boardOne.GenerateBoard();
-        boardTwo.GenerateBoard();
         var pOne = new Player { Name = createdGameDto.PlayerOneName };
         var pTwo = new Player { Name = createdGameDto.PlayerTwoName };
 
@@ -44,6 +43,8 @@ public class SimpleGameService : ISimpleGameService
 
         var game = _games[matchId];
         var moveBy = game.GetActivePlayer();
+        
+        if(!moveBy.Name.Equals(fireRequest.PlayerId))throw new NotYourTurnException("Wait till it's your turn homeboy.");
 
         var moveResult = game.HandleMove(fireRequest.PositionX, fireRequest.PositionY);
         var gameStateDto = new GameStateDto(moveBy: moveBy,moveResultEnum: moveResult.MoveResultEnum,hasWon: moveResult.HasWon);

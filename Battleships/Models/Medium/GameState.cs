@@ -12,14 +12,13 @@ public class GameState
         PlayerOneBoard = boardOne;
         PlayerTwoBoard = boardTwo;
         ActivePlayer = pOne;
-        ActiveBoard = boardOne;
+        ActiveBoard = boardTwo;
         _hasConcluded = false;
     }
 
     private Player PlayerOne { get; }
     private Player PlayerTwo { get; }
     
-    //TODO: maybe change to "ActiveBoard" and switch references to boards instead of Players - should have no if checks for player move -> move board moves into Board itself
     private Player ActivePlayer { get; set; }
     private Board ActiveBoard { get; set; }
 
@@ -38,12 +37,12 @@ public class GameState
         if (ActivePlayer == PlayerTwo)
         {
             ActivePlayer = PlayerOne;
-            ActiveBoard = PlayerOneBoard;
+            ActiveBoard = PlayerTwoBoard;
         }
         else
         {
             ActivePlayer = PlayerTwo;
-            ActiveBoard = PlayerTwoBoard;
+            ActiveBoard = PlayerOneBoard;
         }
     }
 

@@ -30,7 +30,7 @@ public class Board
     private const int NumOfShipSlots = 21;
     private int NumOfHits { get; set; }
 
-    private char GetTile(int x, int y) => Tiles[y, x];
+    private char GetTile(int x, int y) => Tiles[x, y];
 
     public void GenerateBoard()
     {
@@ -44,15 +44,15 @@ public class Board
                 var rotated = _rng.NextDouble() >= 0.5;
 
                 if (CanPlace(ship, startX, startY,rotated)) {
-                    AddShip(ship, startX, startY,rotated);
+                    AddShip(ship, startX, startY, rotated);
                     placed = true;
                 }
 
-                if (!placed && CanPlace(ship, startX, startY, !rotated))
-                {
-                    AddShip(ship, startX, startY, !rotated);
-                    placed = true;
-                }
+                // if (!placed && CanPlace(ship, startX, startY, !rotated))
+                // {
+                //     AddShip(ship, startX, startY, !rotated);
+                //     placed = true;
+                // }
 
                 attempts++;
             }
@@ -91,8 +91,8 @@ public class Board
                         var checkY = targetY + ny;
                         var checkX = targetX + nx;
 
-                        if (checkY >= 0 && checkY < Tiles.GetUpperBound(1) && 
-                            checkX >= 0 && checkX < Tiles.GetUpperBound(0))
+                        if (checkY >= 0 && checkY <= Tiles.GetUpperBound(1) && 
+                            checkX >= 0 && checkX <= Tiles.GetUpperBound(0))
                         {
                             if (GetTile(checkY, checkX) == 'X') return false;
                         }
@@ -103,7 +103,7 @@ public class Board
         return true;
     }
     
-    private void AddShip(char[,] ship, int startY, int startX, bool rotated)
+    private void AddShip(char[,] ship, int startX, int startY, bool rotated)
     {
         for (var i = 0; i < ship.GetLength(0); i++)
         {
@@ -113,7 +113,7 @@ public class Board
                 {
                     var r = rotated ? j : i;
                     var c = rotated ? i : j;
-                    Tiles[startY + r, startX + c] = 'X';
+                    ApplyMove(startX+r,startY+c,'X');
                 }
             }
         }
@@ -126,7 +126,7 @@ public class Board
 
     private void ApplyMove(int x, int y, char result)
     {
-        Tiles[y, x] = result;
+        Tiles[x, y] = result;
     }
 
     private MoveResult CheckTile( int x, int y)
@@ -137,6 +137,7 @@ public class Board
         if (GetTile(x, y) == 'X')
         {
             ApplyMove(x, y, 'x');
+            //I'm lazy to implement BFS to check if ship has sank... for now of course
             // if (board.CheckIfShipSank())
             // {
             //     return MoveResult.Sunk;

@@ -42,8 +42,14 @@ public class SimpleGamesController(ILogger<SimpleGamesController> logger, ISimpl
         }
         catch (GameConcludedException e)
         {
-            return Conflict(e.Message);
+            //Hacky way to work around ASP.NETs exception about forgetting to add AddAuthentication() -- Request/Response pipeline
+            return StatusCode(403,e.Message);
         }
+        catch (Exception e)
+        {
+            return StatusCode(418,e.Message);
+        }
+        
 
     }
 }
