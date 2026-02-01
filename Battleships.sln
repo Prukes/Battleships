@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battleships", "Battleships\Battleships.csproj", "{7C67B4FA-BE7F-4288-818D-A8273F26F673}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBattleships", "SimpleBattleships\SimpleBattleships.csproj", "{7C67B4FA-BE7F-4288-818D-A8273F26F673}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CFA54AEF-8475-4742-8895-E52E26778347}"
 	ProjectSection(SolutionItems) = preProject

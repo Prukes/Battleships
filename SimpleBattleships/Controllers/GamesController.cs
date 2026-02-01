@@ -34,13 +34,13 @@ public class GamesController : ControllerBase
     }
 
     [HttpPost("/queue/join")]
-    public async Task<ActionResult<JoinResponseDto>> JoinQueue(JoinRequestDto joinRequest)
+    public Task<ActionResult<JoinResponseDto>> JoinQueue(JoinRequestDto joinRequest)
     {
         throw new NotImplementedException();
     }
     
     [HttpGet("/queue/{playerId:Guid}/check")]
-    public async Task<ActionResult<Guid>> JoinQueue()
+    public Task<ActionResult<Guid>> JoinQueue()
     {
         throw new NotImplementedException();
     }

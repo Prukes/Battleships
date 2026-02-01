@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Diagnostics.CodeAnalysis;
 using Battleships.DTOs;
 using Battleships.DTOs.Easy;
 using Battleships.Enums;
@@ -15,6 +16,7 @@ public interface ISimpleGameService
     public Task<CreatedGameDto> CreateGame(CreateGameDto createdGameDto);
     //ustřelený jméno abych si zachoval sanity
     public Task<GameStateDto> Fireee(Guid matchId, FireRequestDto fireRequest);
+    public void CleanupFinishedGames();
 }
 
 public class SimpleGameService : ISimpleGameService
@@ -38,16 +40,26 @@ public class SimpleGameService : ISimpleGameService
 
     public Task<GameStateDto> Fireee(Guid matchId, FireRequestDto fireRequest)
     {
-        var gameExists = _games.ContainsKey(matchId);
+        var gameExists = _games.TryGetValue(matchId, out var game);
         if (!gameExists) throw new GameNotFoundException("Game not found");
 
-        var game = _games[matchId];
-        var moveBy = game.GetActivePlayer();
+        var moveBy = game!.GetActivePlayer();
         
-        if(!moveBy.Name.Equals(fireRequest.PlayerId))throw new NotYourTurnException("Wait till it's your turn homeboy.");
+        if(!moveBy.Name.Equals(fireRequest.PlayerId))throw new NotYourTurnException("Wait until it's your turn homeboy.");
 
         var moveResult = game.HandleMove(fireRequest.PositionX, fireRequest.PositionY);
         var gameStateDto = new GameStateDto(moveBy: moveBy,moveResultEnum: moveResult.MoveResultEnum,hasWon: moveResult.HasWon);
         return Task.FromResult(gameStateDto);
+    }
+
+    public void CleanupFinishedGames()
+    {
+        foreach (var game in _games)
+        {
+            if (game.Value.HasConcluded)
+            {
+                _games.TryRemove(game);
+            }
+        }
     }
 }

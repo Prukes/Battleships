@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <RootNamespace>Battleships</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -19,12 +20,6 @@
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="DTOs\Hard\" />
-      <Folder Include="Models\Easy\" />
-      <Folder Include="Models\Hard\" />
     </ItemGroup>
 
     <ItemGroup>

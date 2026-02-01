@@ -10,11 +10,12 @@ builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddSignalR();
 builder.Services.AddSingleton<IGameService,GameService>();
 builder.Services.AddSingleton<ISimpleGameService, SimpleGameService>();
+builder.Services.AddHostedService<BackgroundCleanupService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Battleships GameHub v1", Version = "v1" });
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "SimpleBattleships GameHub v1", Version = "v1" });
     options.AddSignalRSwaggerGen();
 });
 
@@ -25,7 +26,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(options => {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Battleships Hub v1");
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "SimpleBattleships Hub v1");
     });
 }
 
