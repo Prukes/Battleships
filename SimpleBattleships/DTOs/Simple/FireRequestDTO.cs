@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Battleships.DTOs.Easy;
+namespace Battleships.DTOs.Simple;
 
 public class FireRequestDto
 {
     [Required]
-    public required string PlayerId { get; set; }
+    public required Guid PlayerId { get; init; }
     [Required]
     [Range(0, 19)]
-    public int PositionX { get; set; }
+    public int PositionX { get; init; }
     [Required]
     [Range(0, 19)]
-    public int PositionY { get; set; }
+    public int PositionY { get; init; }
     
 }

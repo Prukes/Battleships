@@ -1,5 +1,6 @@
 ﻿using Battleships.DTOs;
 using Battleships.DTOs.Easy;
+using Battleships.DTOs.Simple;
 using Battleships.Enums;
 using Battleships.Exceptions;
 using Battleships.Services;

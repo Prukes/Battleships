@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Battleships.DTOs;
 using Battleships.DTOs.Easy;
+using Battleships.DTOs.Simple;
 using Battleships.Enums;
 using Battleships.Exceptions;
 using Battleships.Models;
@@ -45,7 +46,7 @@ public class SimpleGameService : ISimpleGameService
 
         var moveBy = game!.GetActivePlayer();
         
-        if(!moveBy.Name.Equals(fireRequest.PlayerId))throw new NotYourTurnException("Wait until it's your turn homeboy.");
+        if(!moveBy.PlayerId.Equals(fireRequest.PlayerId))throw new NotYourTurnException("Wait until it's your turn homeboy.");
 
         var moveResult = game.HandleMove(fireRequest.PositionX, fireRequest.PositionY);
         var gameStateDto = new GameStateDto(moveBy: moveBy,moveResultEnum: moveResult.MoveResultEnum,hasWon: moveResult.HasWon);
