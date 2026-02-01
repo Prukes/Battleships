@@ -25,15 +25,15 @@ public class SimpleGameService : ISimpleGameService
     {
         var boardOne = new Board(createdGameDto.BoardSize);
         var boardTwo = new Board(createdGameDto.BoardSize);
-        var pOne = new Player { Name = createdGameDto.PlayerOneName };
-        var pTwo = new Player { Name = createdGameDto.PlayerTwoName };
+        var pOne = new Player(createdGameDto.PlayerOneName);
+        var pTwo = new Player(createdGameDto.PlayerTwoName );
 
 
         var game = new GameState(pOne, pTwo, boardOne, boardTwo);
         var matchId = Guid.NewGuid();
         _games.TryAdd(matchId, game);
 
-        return Task.FromResult(new CreatedGameDto(matchId, game.PlayerOneBoard.Tiles, game.PlayerTwoBoard.Tiles));
+        return Task.FromResult(new CreatedGameDto(matchId, game.PlayerOneBoard.Tiles, game.PlayerTwoBoard.Tiles,pOne.PlayerId, pTwo.PlayerId));
     }
 
     public Task<GameStateDto> Fireee(Guid matchId, FireRequestDto fireRequest)

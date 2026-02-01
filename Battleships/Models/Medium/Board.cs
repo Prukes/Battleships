@@ -23,7 +23,7 @@ public class Board
     }
 
     public int Size { get; set; }
-    public char[,] Tiles { get; set; }
+    public char[,] Tiles { get; }
     
     private readonly Random _rng;
 
@@ -32,7 +32,7 @@ public class Board
 
     private char GetTile(int x, int y) => Tiles[x, y];
 
-    public void GenerateBoard()
+    private void GenerateBoard()
     {
         foreach (var ship in _ships.Reverse()) {
             var placed = false;
@@ -47,12 +47,6 @@ public class Board
                     AddShip(ship, startX, startY, rotated);
                     placed = true;
                 }
-
-                // if (!placed && CanPlace(ship, startX, startY, !rotated))
-                // {
-                //     AddShip(ship, startX, startY, !rotated);
-                //     placed = true;
-                // }
 
                 attempts++;
             }
