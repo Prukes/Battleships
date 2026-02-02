@@ -1,5 +1,4 @@
 ﻿using Battleships.Controllers;
-using Battleships.DTOs.Easy;
 using Battleships.DTOs.Simple;
 using Battleships.Exceptions;
 using Battleships.Models;

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Battleships.DTOs.Medium;
+namespace Battleships.DTOs.Realtime;
 
 public class JoinRequestDto
 {

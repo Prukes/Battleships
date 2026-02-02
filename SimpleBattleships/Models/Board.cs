@@ -1,6 +1,5 @@
 ﻿using Battleships.Enums;
 using Battleships.Exceptions;
-using Battleships.Models.Medium;
 
 namespace Battleships.Models;
 

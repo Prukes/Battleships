@@ -1,14 +1,12 @@
 ﻿using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using Battleships.DTOs;
-using Battleships.DTOs.Easy;
 using Battleships.DTOs.Simple;
 using Battleships.Enums;
 using Battleships.Exceptions;
 using Battleships.Models;
-using Battleships.Models.Medium;
 using Microsoft.AspNetCore.Mvc;
-using GameStateDto = Battleships.DTOs.Easy.GameStateDto;
+using GameStateDto = Battleships.DTOs.Simple.GameStateDto;
 
 namespace Battleships.Services;
 

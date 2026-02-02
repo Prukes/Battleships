@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Battleships.DTOs.Easy;
+namespace Battleships.DTOs.Simple;
 
 public class CreatedGameDto
 {
@@ -13,8 +13,8 @@ public class CreatedGameDto
 
 
     //Sending Boards only for development/testing purposes.
-    //In prod this is shouldn't exist purely for the logic
-    //of not seeing the game state of other player.
+    //In prod this shouldn't exist purely for the logic
+    //of not seeing the game state of another player.
     [Required] public char[,] Board1 { get; set; }
     [Required] public char[,] Board2 { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Battleships.DTOs.Easy;
+namespace Battleships.DTOs.Simple;
 
 public class CreateGameDto
 {

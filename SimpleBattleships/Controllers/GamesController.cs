@@ -1,5 +1,4 @@
-using Battleships.DTOs;
-using Battleships.DTOs.Medium;
+using Battleships.DTOs.Realtime;
 using Battleships.Services;
 using Microsoft.AspNetCore.Mvc;
 

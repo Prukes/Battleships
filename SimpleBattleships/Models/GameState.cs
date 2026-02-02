@@ -1,7 +1,7 @@
 ﻿using Battleships.Enums;
 using Battleships.Exceptions;
 
-namespace Battleships.Models.Medium;
+namespace Battleships.Models;
 
 public class GameState
 {

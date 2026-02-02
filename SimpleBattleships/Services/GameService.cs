@@ -1,6 +1,5 @@
 ﻿using System.Collections.Concurrent;
 using Battleships.Models;
-using Battleships.Models.Medium;
 
 namespace Battleships.Services;
 

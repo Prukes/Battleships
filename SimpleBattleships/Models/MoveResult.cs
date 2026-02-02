@@ -1,5 +1,5 @@
 ﻿using Battleships.Enums;
 
-namespace Battleships.Models.Medium;
+namespace Battleships.Models;
 
 public readonly record struct MoveResult(MoveResultEnum MoveResultEnum, bool HasWon);

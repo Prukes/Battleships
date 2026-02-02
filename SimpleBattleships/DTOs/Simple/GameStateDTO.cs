@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using Battleships.Enums;
 using Battleships.Models;
 
-namespace Battleships.DTOs.Easy;
+namespace Battleships.DTOs.Simple;
 
 public class GameStateDto
 {
